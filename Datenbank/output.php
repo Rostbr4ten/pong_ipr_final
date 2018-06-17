@@ -2,7 +2,7 @@
 <?php include ('config/config.php')?>
 <html>
 <head>
-  <title>Heroku Test</title>
+  <title>DB Output</title>
   <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="css/index.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
