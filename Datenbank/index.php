@@ -1,10 +1,12 @@
 <?php include ('config/db.php')?>
 <?php include ('config/config.php')?>
 <?php
-if(isset($_GET['name'])) {
-    $stmt = $pdo->prepare("INSERT INTO users (name)VALUES (:name)");
+if(isset($_GET['name']) && isset($_GET['punkte'])) {
+    $stmt = $pdo->prepare("INSERT INTO users (name, punkte)VALUES (:name, :punkte)");
     $stmt->bindParam(':name', $name);
+    $stmt->bindParam(':punkte', $punkte);
     $name = $_GET["name"];
+    $punkte = $_GET["punkte"];
 
   try {
     $stmt->execute();
