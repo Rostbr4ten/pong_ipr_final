@@ -18,13 +18,13 @@ if(isset($_GET['name']) && isset($_GET['punkte'])) {
 <html>
 <head>
   <title>DB Insert</title>
-  <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-  <link rel="stylesheet" type="text/css" href="css/index.css">
+  <link rel="stylesheet" type="text/css" href="Datenbank/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="Datenbank/css/index.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 </head>
 <body>
 <script>
-  window.location.href = 'https://powerful-retreat-12345.herokuapp.com/';
+  window.location.href = 'https://pong-ipr.herokuapp.com/';
 </script>
 </body>
 </html>
