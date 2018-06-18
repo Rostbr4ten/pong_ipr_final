@@ -3,7 +3,7 @@ var express = require("express");
 var http = require("http");
 var socketio = require("socket.io");
 var app = express();
-
+///
 app.get("/", function (req, res) {
     res.sendFile(__dirname + "/index.html");
 });
@@ -14,15 +14,29 @@ app.get("/client.html", function (req, res) {
     res.sendFile(__dirname + "/client.html");
 });
 
+//Server basic function
+var handler = function(req, res) {
+    fs.readFile('./client.html', function (err, data) {
+        if(err) throw err;
+        res.writeHead(200);
+        res.end(data);
+    });
+}
 
 var POST = process.env.PORT||8080;
 var server = http.createServer(app).listen(POST, function() {
   console.log('start connection', POST);
 });
-console.log('Server started running!');
 
-//Socket&Game
-var io = socketio(server);
+//old Part to connection.When it works,we dont need this part
+// var app = require('http').createServer(handler);
+// var io = require('socket.io').listen(app);
+// var fs = require('fs');
+// var port = 3333;
+// app.listen(port);
+// console.log("Server is running on port 3333");
+
+//Game
 var canvasWidth = 480;
 var canvasHeight = 620;
 var calcSwitch = false;
@@ -120,7 +134,7 @@ function calculate() {
 setInterval(calculate, 10);
 
 //sockets
-io.on('connection', function (socket) {
+io.sockets.on('connection', function (socket) {
     console.log('someone connected')
     io.sockets.emit("hideForm");
 

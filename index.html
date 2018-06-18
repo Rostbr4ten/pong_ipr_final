@@ -15,13 +15,18 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="style.css" />
+<link rel="stylesheet" href="styletwo.css" />
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <style>
 .flex-container {
 flex-flow: column-reverse wrap-reverse;
 flex-direction: column;
-
-
+}
+  
+  body {
+   background-image: url(pongtitle.png);
+   background-repeat: no-repeat;
+    background-size: 300px 100px;
 }
 
 .flex-container > div {/*
@@ -35,15 +40,15 @@ flex-direction: column;
 </style>
 </head>
 <body bgcolor="#E6E6FA" >
+<div class="bg">
+</div>
 <center>
 <h1> Menü <h1>
 
 <div class="flex-container">
   <div><a href="/client.html"><button type="button" class="btn btn-success">Spiel starten</button></a></div>
   <div><a href="https://pong-ipr-datenbank.herokuapp.com/output.php"><button type="button" class="btn btn-warning">Highscore anzeigen</button></a></div>
-
 </div>
-
 </div>
 </body>
 </html>

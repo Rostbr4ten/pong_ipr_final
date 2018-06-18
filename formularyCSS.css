@@ -1,0 +1,42 @@
+ /* Browser Reset */
+ input:invalid {
+   box-shadow:none;
+ }
+ /* ersetzt Asterisk */
+ input:required + label::after {
+   content:" *";
+   color:#f00;
+ }
+ /* nicht oder falsch ausgefuellte Felder rot markieren */
+ input:focus:invalid {
+   border-color:#f00;
+ }
+ /* richtig ausgefuellte Felder gruen markieren */
+ input:required:focus:valid {
+   border-color:#0c0;
+ }
+ /* Buttons mit grauem Gradient und runden Ecken */
+ button {
+   background:-moz-linear-gradient(top,#fff,#ccc);
+   background:-webkit-linear-gradient(top,#fff,#ccc);
+   background:-ms-linear-gradient(top,#fff,#ccc);
+   background:-o-linear-gradient(top,#fff,#ccc);
+   background:linear-gradient(top,#fff,#ccc);
+   border-radius:5px;
+ }
+ /* Submit-Buttons mit blauem Verlauf */
+ button[type="submit"] {
+   background:-moz-linear-gradient(top,#0cc,#08c);
+   background:-webkit-linear-gradient(top,#0cc,#08c);
+   background:-ms-linear-gradient(top,#0cc,#08c);
+   background:-o-linear-gradient(top,#0cc,#09c);
+   background:linear-gradient(top,#0cc,#08c);
+ } 
+ 
+ h2{
+	font-family: 'Open Sans', sans-serif; 
+ }
+ 
+ label{
+	font-family: 'Open Sans', sans-serif; 
+ }
