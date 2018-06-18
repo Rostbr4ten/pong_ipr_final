@@ -2,6 +2,9 @@
 <!--https://developer.mozilla.org/en-US/docs/Games/Tutorials/2D_Breakout_game_pure_JavaScript-->
 <html>
 <head>
+    <style>
+    @import url('https://fonts.googleapis.com/css?family=Open+Sans');
+    </style> 
     <meta charset="utf-8" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
     <title>Gamedev Canvas Workshop</title>
@@ -9,6 +12,7 @@
     	* { padding: 0; margin: 0; }
     	canvas { background: #eee; display: block; margin: 0 auto; }
     </style>
+    <link rel="stylesheet" type="text/css" href="formularyCSS.css">
 </head>
 <body>
 <canvas id="myCanvas" width="480" height="320"></canvas>
@@ -16,13 +20,23 @@
 <div align="center"><input type="button" value="Start/Reload" onclick="btnStart()" /></div>
 <div align="right"><a href="/index.html">zurück zum Menü</a></div>
     
-<form id="guestbook-form" action ="https://pong-ipr-datenbank.herokuapp.com/" method="get">
-      Name:<br>
-      <input type="name" size="40" maxlength="250" name="name"><br><br>
-      Punkte:<br>
-      <input type="punkte" size="40" maxlength="250" name="punkte"><br><br>
-      <input id="submit" type="submit" value="Send">
-</form>
+<form id="guestbook-form" action="" method="post">
+   <fieldset class="data">
+     <h2>Speichern sie das Ergebnis</h2>
+        <p>
+   <label for="name">Ihr Name</label>
+   <input id ="name" title="name" type="name" size="40" maxlength="250" name="name"/>
+  </p>
+        <p>
+   <label for="punkte">Punkte</label>
+     <input id="punkte" type="punkte" size="40" maxlength="250" name="punkte" title="Punkte"/>
+  </p>
+   </fieldset>
+   <fieldset class="buttons">
+      <button type="submit">Absenden</button>
+      <button type="reset">Eingaben löschen</button>
+   </fieldset>
+ </form>
 
 
 <script>
