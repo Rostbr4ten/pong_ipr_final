@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<!--https://developer.mozilla.org/en-US/docs/Games/Tutorials/2D_Breakout_game_pure_JavaScript-->
+<html>
+<head>
+    <meta charset="utf-8" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.1.1/socket.io.js"></script>
+    <title>Pong</title>
+    <style>
+    	* { padding: 0; margin: 0; }
+    	canvas { background: #eee; display: block; margin: 0 auto; }
+    </style>
+</head>
+<body>
+<canvas id="myCanvas" width="480" height="620"></canvas>
+<div align="center">
+    <input type="button" id="btnStart" value="Start" onclick="btnStart()" />
+    <input type="button" id="btnPause" disabled="disabled" value="Pause" onclick="btnPause()" />
+    <input type="button" id="btnReset" disabled="disabled" value="Reset" onclick="btnReset()" />
+</div>
+<div align="right"><a href="/index.html">zurück zum Menü</a></div>
+<div id="disp" align="center">
+     <h1>Congratulation!!!!</h1>
+     <p>Schreib Mal Dein Name unten</p>
+     <br>
+     <form id="guestbook-form" action ="datenVerarbeitung.php" method="get">
+      Name:<br>
+      <input type="name" size="40" maxlength="250" name="name"><br><br>
+      <input id="submit" type="submit" value="Send">
+      </form>
+</div>
+
+
+<script>
+const socket = io(); //to communicate with server via socket.io
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
+//ball
+var ballRadius = 10;
+var x = canvas.width/2;
+var y = canvas.height-30;
+//paddle1
+var paddleHeight = 10;
+var paddleWidth = 75;
+var paddleX = (canvas.width-paddleWidth)/2;
+var rightPressed = false;
+var leftPressed = false;
+//paddle2
+var paddleHeight2 = 10;
+var paddleWidth2 = 75;
+var paddleX2 = (canvas.width-paddleWidth2)/2;
+var rightPressed2 = false;
+var leftPressed2 = false;
+//score
+var scoreBlue = 0;
+var scoreRed = 0;
+
+
+//Control cursor keys
+document.addEventListener("keydown", keyDownHandler, false);
+document.addEventListener("keyup", keyUpHandler, false);
+document.addEventListener("keydown", keyDownHandler2, false);
+document.addEventListener("keyup", keyUpHandler2, false);
+function keyDownHandler(e) {
+    if(e.keyCode == 39) {
+        socket.emit("rightKeyDown");
+    }
+    else if(e.keyCode == 37) {
+        socket.emit("leftKeyDown");
+    }
+}
+function keyUpHandler(e) {
+    if(e.keyCode == 39) {
+        socket.emit("rightKeyUp");
+    }
+    else if(e.keyCode == 37) {
+        socket.emit("leftKeyUp");
+    }
+}
+
+function keyDownHandler2(e) {
+    if(e.keyCode == 68) {
+        socket.emit("rightKeyDown2");
+    }
+    else if(e.keyCode == 65) {
+        socket.emit("leftKeyDown2");
+    }
+}
+function keyUpHandler2(e) {
+    if(e.keyCode == 68) {
+        socket.emit("rightKeyUp2");
+    }
+    else if(e.keyCode == 65) {
+        socket.emit("leftKeyUp2");
+    }
+}
+
+//draw objects
+function drawBall() {
+    ctx.beginPath();
+    ctx.arc(x, y, ballRadius, 0, Math.PI*2);
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+}
+
+function drawPaddle() {
+    ctx.beginPath();
+    ctx.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight);
+    ctx.fillStyle = "#0095DD";
+    ctx.fill();
+    ctx.closePath();
+}
+function drawPaddle2() {
+    ctx.beginPath();
+    ctx.rect(paddleX2, 0, paddleWidth2, paddleHeight2);
+    ctx.fillStyle = "#DD4800";
+    ctx.fill();
+    ctx.closePath();
+}
+
+function drawScore(){
+    ctx.font = "16px Arial";
+    ctx.fillStyle = "#0095DD";
+    ctx.fillText("Blue: "+scoreBlue+" "+"Red: "+scoreRed,8,20);
+}
+
+function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    socket.emit("getCoordinates");
+    socket.on('setCoordinates', function (data) {
+       x = data.positionX;
+       y = data.positionY;
+       paddleX = data.paddleX;
+       paddleX2 = data.paddleX2;
+    });
+    drawBall();
+    drawPaddle();
+    drawPaddle2();
+    drawScore();
+    requestAnimationFrame(draw);
+}
+
+//Start&Reload Button
+function btnStart(){
+    socket.emit("getStart");
+}
+socket.on('setStart', function (data) {
+    scoreBlue = data.scoreBlue;
+    scoreRed = data.scoreRed;
+    document.getElementById("btnStart").disabled = "disabled";
+    document.getElementById("btnPause").disabled = "";
+    document.getElementById("btnReset").disabled = "";
+    draw();
+});
+function btnPause(){
+    socket.emit("getPause");
+}
+socket.on('setPause', function () {
+    document.getElementById("btnPause").disabled = "disabled";
+    document.getElementById("btnStart").disabled = "";
+});
+function btnReset(){
+    socket.emit("getReset");
+}
+//form
+socket.on('hideForm', function () {
+   document.getElementById("disp").style.display="none";
+});
+socket.on('showForm', function () {
+   document.getElementById("disp").style.display="block";
+});
+
+//score
+socket.on('renewScore', function (data) {
+    scoreBlue = data.scoreBlue;
+    scoreRed = data.scoreRed;
+});
+</script>
+
+</body>
+</html>
