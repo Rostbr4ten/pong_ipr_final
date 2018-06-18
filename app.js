@@ -199,8 +199,3 @@ io.sockets.on('connection', function (socket) {
     });
 
 });
-
-
-io.on("disconnect", function (socket) {
-    console.log('someone disconnected')
-});
